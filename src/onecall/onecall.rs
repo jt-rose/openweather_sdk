@@ -1,4 +1,3 @@
-
 use crate::languages::Language;
 use crate::units::Units;
 use crate::responses::onecall_response::OneCallResponse;
@@ -12,7 +11,7 @@ pub struct Fields {
     pub alerts: bool
 }
 
-pub struct Query {
+pub struct OneCall {
     api_key: String,
     lat: f64,
     long: f64,
@@ -23,7 +22,7 @@ pub struct Query {
     pub fields: Fields
 }
 
-impl Query {
+impl OneCall {
     pub fn new(api_key: &str, lat: f64, long: f64) -> Self {
         Self{
             api_key: api_key.to_string(),

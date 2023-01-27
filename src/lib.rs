@@ -1,12 +1,12 @@
 mod languages;
-mod query;
 mod units;
 mod responses;
+mod onecall;
 
 #[cfg(test)]
 mod tests {
     use std::collections::HashMap;
-    use crate::query::Query;
+    use crate::onecall::Query;
     use crate::units::Units;
 
     #[test]

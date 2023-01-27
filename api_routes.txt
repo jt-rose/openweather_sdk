@@ -1,0 +1,32 @@
+The following are various API branches offered by openweather
+in addition to the main "OneCall" route
+
+detailed info for each can be found here: https://openweathermap.org/api
+
+current weather: https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+hourly: https://pro.openweathermap.org/data/2.5/forecast/hourly?lat={lat}&lon={lon}&appid={API key}
+daily: api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API key}
+climate: https://pro.openweathermap.org/data/2.5/forecast/climate?lat={lat}&lon={lon}&appid={API key}
+bulk: https://bulk.openweathermap.org/snapshot/{BULK_FILE_NAME}?appid={API key}
+alerts: push notifications via custom setup, contact openweather
+solar radiation: http://api.openweathermap.org/data/2.5/solar_radiation?lat={lat}&lon={lon}&appid={API key}
+5 day / 3 hour: api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+road risk: https://api.openweathermap.org/data/2.5/roadrisk?appid={API key}
+
+history: https://history.openweathermap.org/data/2.5/history/city?lat={lat}&lon={lon}&type=hour&start={start}&end={end}&appid={API key}
+history - timestamp: https://history.openweathermap.org/data/3.0/history/timemachine?lat=51.51&lon=-0.13&dt=606348800&appid={API key}
+history - full archive: http://history.openweathermap.org/data/3.0/history/locations/create?lat={lat}&lon={lon}&appid={API key}
+statistical: history.openweathermap.org/data/2.5/aggregated/year?lat={lat}&lon={lon}&appid={API key}
+accumulated: http://history.openweathermap.org/data/2.5/history/accumulated_temperature?lat={lat}&lon={lon}&start={start}&end={end}&threshold={threshold}&appid={API key}
+
+weather maps 3-hour step: http://maps.openweathermap.org/maps/2.0/weather/{op}/{z}/{x}/{y}?appid={API key}
+weather maps 1-hour step: https://maps.openweathermap.org/maps/2.0/weather/1h/{op}/{z}/{x}/{y}?appid={API key}
+weather maps 1.0(old): https://tile.openweathermap.org/map/{layer}/{z}/{x}/{y}.png?appid={API key}
+precipitation map: https://maps.openweathermap.org/maps/2.0/radar/{z}/{x}/{y}?appid={API key}&tm={date}
+precipitation map with history and forecast: https://maps.openweathermap.org/maps/2.0/radar/forecast/{z}/{x}/{y}?appid={API key}&tm={date}
+relief maps: http://maps.openweathermap.org/maps/2.0/relief/{z}/{x}/{y}
+
+air pollution: http://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API key}
+geocoding: http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
+weather stations: http://api.openweathermap.org/data/3.0/stations
+weather triggers: http://api.openweathermap.org/data/3.0/triggers

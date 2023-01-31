@@ -12,9 +12,7 @@ pub struct Fields {
 }
 
 pub struct OneCall {
-    api_key: String,
-    lat: f64,
-    long: f64,
+    api_key: &'static str,
     units: Units,
     language: Language,
     // fields are used to specify which should be included,
@@ -23,13 +21,11 @@ pub struct OneCall {
 }
 
 impl OneCall {
-    pub fn new(api_key: &str, lat: f64, long: f64) -> Self {
+    pub fn new(api_key: &'static str, units: Units, language: Language) -> Self {
         Self{
-            api_key: api_key.to_string(),
-            lat,
-            long,
-            units: Units::Standard,
-            language: Language::English,
+            api_key,
+            units,
+            language,
             fields: Fields {
                 current: true,
                 minutely: true,
@@ -40,24 +36,11 @@ impl OneCall {
         }
     }
 
-    pub fn set_lat_and_long(&mut self, lat: f64, long: f64) {
-        self.lat = lat;
-        self.long = long;
-    }
-
-    pub fn set_units(&mut self, units: Units) {
-        self.units = units;
-    }
-
-    pub fn set_language(&mut self, language: Language) {
-        self.language = language;
-    }
-
-    fn format_url_query(&self) -> String {
+    fn format_url_query(&self, lat: f64, lon: f64) -> String {
         format!(
             "https://api.openweathermap.org/data/3.0/onecall?lat={}&lon={}&units={}&lang={}&appid={}{}",
-            self.lat,
-            self.long,
+            lat,
+            lon,
             self.units,
             self.language,
             self.api_key,
@@ -65,12 +48,12 @@ impl OneCall {
         )
     }
 
-    fn format_historical_query(&self, datetime: i64) -> String {
+    fn format_historical_query(&self, lat: f64, lon: f64, datetime: i64) -> String {
         format!(
             "https://api.openweathermap.org/data/3.0/onecall/timemachine?dt={}&lat={}&lon={}&units={}&lang={}&appid={}",
             datetime,
-            self.lat,
-            self.long,
+            lat,
+            lon,
             self.units,
             self.language,
             self.api_key
@@ -105,10 +88,8 @@ impl OneCall {
         }
     }
 
-    pub async fn call(&self) -> Result<OneCallResponse, Box<dyn std::error::Error>> {
-        println!("{}", self.format_excluded_fields());
-        println!("{}", self.format_url_query());
-        let resp = reqwest::get(self.format_url_query())
+    pub async fn call(&self, lat: f64, lon: f64) -> Result<OneCallResponse, Box<dyn std::error::Error>> {
+        let resp = reqwest::get(self.format_url_query(lat, lon))
             .await?
             .json::<OneCallResponse>()
             .await?;
@@ -116,9 +97,8 @@ impl OneCall {
         Ok(resp)
     }
 
-    pub async fn call_historical_data(&self, datetime: i64) -> Result<HistoricalResponse, Box<dyn std::error::Error>> {
-        println!("{}", self.format_historical_query(datetime));
-        let resp = reqwest::get(self.format_historical_query(datetime))
+    pub async fn call_historical_data(&self, lat: f64, lon: f64, datetime: i64) -> Result<HistoricalResponse, Box<dyn std::error::Error>> {
+        let resp = reqwest::get(self.format_historical_query(lat, lon, datetime))
             .await?
             .json::<HistoricalResponse>()
             .await?;

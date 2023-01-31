@@ -1,5 +1,6 @@
 use std::fmt;
 
+#[derive(Copy, Clone)]
 pub enum Language {
     Afrikaans,
     Albanian,

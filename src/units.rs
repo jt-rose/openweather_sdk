@@ -1,5 +1,6 @@
 use std::fmt;
 
+#[derive(Copy, Clone)]
 pub enum Units {
     Standard,
     Metric,
@@ -17,6 +18,5 @@ impl fmt::Display for Units {
                 Self::Imperial => "imperial"
             }
         )
-
     }
 }

@@ -1,3 +1,3 @@
 pub mod onecall_response;
 pub mod historical_response;
-mod weather;
+pub mod weather;

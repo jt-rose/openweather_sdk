@@ -1,22 +1,15 @@
-use std::fmt;
 use reqwest::Response;
-use crate::languages::Language;
-use crate::units::Units;
 use super::map_layer::MapLayer;
 
 
 pub struct Maps {
-    api_key: &'static str,
-    units: Units,
-    language: Language,
+    api_key: String
 }
 
 impl Maps {
-    pub fn new(api_key: &'static str, units: Units, language: Language) -> Self {
+    pub fn new(api_key: String) -> Self {
         Self {
-            api_key,
-            units,
-            language
+            api_key
         }
     }
 

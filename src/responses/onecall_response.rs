@@ -1,129 +1,129 @@
-use serde::Deserialize;
+use serde::{ Serialize, Deserialize };
 use super::weather::Weather;
 
-#[derive(Debug, Deserialize)]
-struct Rain {
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Rain {
     #[serde(alias = "1h")]
-    volume_over_last_hour: f64
+    pub volume_over_last_hour: f64
 }
 
-#[derive(Debug, Deserialize)]
-struct Snow {
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Snow {
     #[serde(alias = "1h")]
-    volume_over_last_hour: f64
+    pub volume_over_last_hour: f64
 }
 
-#[derive(Debug, Deserialize)]
-struct Current {
-    dt: i64,
-    sunrise: i64,
-    sunset: i64,
-    temp: f64,
-    feels_like: f64,
-    pressure: u64,
-    humidity: u64,
-    dew_point: f64,
-    uvi: f64,
-    clouds: u64,
-    visibility: i64,
-    wind_speed: f64,
-    wind_deg: u64,
-    wind_gust: Option<f64>,
-    rain: Option<Rain>,
-    snow: Option<Snow>,
-    weather: Vec<Weather>
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Current {
+    pub dt: i64,
+    pub sunrise: i64,
+    pub sunset: i64,
+    pub temp: f64,
+    pub feels_like: f64,
+    pub pressure: u64,
+    pub humidity: u64,
+    pub dew_point: f64,
+    pub uvi: f64,
+    pub clouds: u64,
+    pub visibility: i64,
+    pub wind_speed: f64,
+    pub wind_deg: u64,
+    pub wind_gust: Option<f64>,
+    pub rain: Option<Rain>,
+    pub snow: Option<Snow>,
+    pub weather: Vec<Weather>
 }
 
-#[derive(Debug, Deserialize)]
-struct Temp {
-    day: f64,
-    min: f64,
-    max: f64,
-    night: f64,
-    eve: f64,
-    morn: f64
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Temp {
+    pub day: f64,
+    pub min: f64,
+    pub max: f64,
+    pub night: f64,
+    pub eve: f64,
+    pub morn: f64
 }
 
-#[derive(Debug, Deserialize)]
-struct FeelsLike {
-    day: f64,
-    night: f64,
-    eve: f64,
-    morn: f64
+#[derive(Debug, Serialize, Deserialize)]
+pub struct FeelsLike {
+    pub day: f64,
+    pub night: f64,
+    pub eve: f64,
+    pub morn: f64
 }
 
-#[derive(Debug, Deserialize)]
-struct Daily {
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Daily {
     #[serde(alias = "dt")]
-    datetime: i64,
-    sunrise: i64,
-    sunset: i64,
-    moonrise: i64,
-    moonset: i64,
-    moon_phase: f64,
-    temp: Temp,
-    feels_like: FeelsLike,
-    pressure: i64,
-    humidity: u64,
-    dew_point: f64,
-    wind_speed: f64,
-    wind_deg: i64,
-    wind_gust: Option<f64>,
-    weather: Vec<Weather>,
-    clouds: i64,
-    pop: f64,
-    rain: Option<f64>,
-    snow: Option<f64>,
-    uvi: f64
+    pub datetime: i64,
+    pub sunrise: i64,
+    pub sunset: i64,
+    pub moonrise: i64,
+    pub moonset: i64,
+    pub moon_phase: f64,
+    pub temp: Temp,
+    pub feels_like: FeelsLike,
+    pub pressure: i64,
+    pub humidity: u64,
+    pub dew_point: f64,
+    pub wind_speed: f64,
+    pub wind_deg: i64,
+    pub wind_gust: Option<f64>,
+    pub weather: Vec<Weather>,
+    pub clouds: i64,
+    pub pop: f64,
+    pub rain: Option<f64>,
+    pub snow: Option<f64>,
+    pub uvi: f64
 }
 
-#[derive(Debug, Deserialize)]
-struct Hourly {
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Hourly {
     #[serde(alias = "dt")]
-    datetime: i64,
-    temp: f64,
-    feels_like: f64,
-    pressure: u64,
-    humidity: u64,
-    dew_point: f64,
-    uvi: f64,
-    clouds: u64,
-    visibility: i64,
-    wind_speed: f64,
-    wind_deg: u64,
-    wind_gust: Option<f64>,
-    rain: Option<Rain>,
-    snow: Option<Snow>,
-    weather: Vec<Weather>,
-    pop: f64
+    pub datetime: i64,
+    pub temp: f64,
+    pub feels_like: f64,
+    pub pressure: u64,
+    pub humidity: u64,
+    pub dew_point: f64,
+    pub uvi: f64,
+    pub clouds: u64,
+    pub visibility: i64,
+    pub wind_speed: f64,
+    pub wind_deg: u64,
+    pub wind_gust: Option<f64>,
+    pub rain: Option<Rain>,
+    pub snow: Option<Snow>,
+    pub weather: Vec<Weather>,
+    pub pop: f64
     }
 
-#[derive(Debug, Deserialize)]
-struct Minutely {
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Minutely {
     #[serde(alias = "dt")]
-    datetime: i64,
-    precipitation: u64
+    pub datetime: i64,
+    pub precipitation: u64
 }
 
-#[derive(Debug, Deserialize)]
-struct Alert {
-    sender_name: String,
-    event: String,
-    start: i64,
-    end: i64,
-    description: String,
-    tags: Vec<String>
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Alert {
+    pub sender_name: String,
+    pub event: String,
+    pub start: i64,
+    pub end: i64,
+    pub description: String,
+    pub tags: Vec<String>
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct OneCallResponse {
-    lat: f64,
-    lon: f64,
-    timezone: String,
-    timezone_offset: isize,
-    current: Option<Current>,
-    minutely: Option<Vec<Minutely>>,
-    hourly: Option<Vec<Hourly>>,
-    daily: Option<Vec<Daily>>,
-    alerts: Option<Vec<Alert>>
+    pub lat: f64,
+    pub lon: f64,
+    pub timezone: String,
+    pub timezone_offset: isize,
+    pub current: Option<Current>,
+    pub minutely: Option<Vec<Minutely>>,
+    pub hourly: Option<Vec<Hourly>>,
+    pub daily: Option<Vec<Daily>>,
+    pub alerts: Option<Vec<Alert>>
 }

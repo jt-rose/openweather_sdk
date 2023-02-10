@@ -12,7 +12,7 @@ pub struct Fields {
 }
 
 pub struct OneCall {
-    api_key: &'static str,
+    api_key: String,
     units: Units,
     language: Language,
     // fields are used to specify which should be included,
@@ -21,7 +21,7 @@ pub struct OneCall {
 }
 
 impl OneCall {
-    pub fn new(api_key: &'static str, units: Units, language: Language) -> Self {
+    pub fn new(api_key: String, units: Units, language: Language) -> Self {
         Self{
             api_key,
             units,

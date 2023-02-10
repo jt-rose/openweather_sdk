@@ -33,7 +33,7 @@ pub enum Language {
     Dutch,
     Polish,
     Portuguese,
-    Portugues_Brasil,
+    PortuguesBrasil,
     Romanian,
     Russian,
     Swedish, // "se" also listed
@@ -44,8 +44,8 @@ pub enum Language {
     Turkish,
     Ukrainian, // "ua" also listed
     Vietnamese,
-    Chinese_Simplified,
-    Chinese_Traditional,
+    ChineseSimplified,
+    ChineseTraditional,
     Zulu
 }
 
@@ -86,7 +86,7 @@ impl fmt::Display for Language {
                 Self::Dutch => "nl",
                 Self::Polish => "pl",
                 Self::Portuguese => "pt",
-                Self::Portugues_Brasil => "pt_br",
+                Self::PortuguesBrasil => "pt_br",
                 Self::Romanian => "ro",
                 Self::Russian => "ru",
                 Self::Swedish => "sv", // "se" also listed
@@ -97,8 +97,8 @@ impl fmt::Display for Language {
                 Self::Turkish => "tr",
                 Self::Ukrainian => "uk", // "ua" also listed
                 Self::Vietnamese => "vi",
-                Self::Chinese_Simplified => "zh_cn",
-                Self::Chinese_Traditional => "zh_tw",
+                Self::ChineseSimplified => "zh_cn",
+                Self::ChineseTraditional => "zh_tw",
                 Self::Zulu => "zu"
             }
         )

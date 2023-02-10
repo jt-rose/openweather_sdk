@@ -1,9 +1,9 @@
-use serde::Deserialize;
+use serde::{ Serialize, Deserialize };
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Weather {
-    id: u64,
-    main: String,
-    description: String,
-    icon: String
+    pub id: u64,
+    pub main: String,
+    pub description: String,
+    pub icon: String
 }

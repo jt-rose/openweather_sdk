@@ -10,6 +10,10 @@ This library is a small rust wrapper for making requests to the openweather API.
 ### Query Types Supported
 - OneCall
 - TimeMachine
+- Forecast
+- Maps
+- Air Pollution
+- Geocoding
 
 ### Getting Started
 

@@ -1,14 +1,15 @@
 pub mod languages;
 pub mod units;
 pub mod responses;
-pub mod onecall;
+pub mod one_call;
 pub mod forecast;
 // pub mod settings;
 pub mod openweather;
 pub mod maps;
 pub mod air_pollution;
 pub mod geocoding;
-
+pub mod response_elements;
+pub mod utils;
 
 
 #[cfg(test)]
@@ -53,40 +54,34 @@ mod tests {
         OpenWeather::new(api_key, Units::Imperial, Language::English)
     }
 
-    #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
-    }
-
-    // onecall
+    // one_call
     #[tokio::test]
-    async fn get_onecall() {
+    async fn get_one_call() {
         let client = create_client();
         let setup = Setup::new();
-        let result = client.onecall.call(setup.lat, setup.lon).await;
+        let result = client.one_call.call(setup.lat, setup.lon).await;
 
         assert_eq!(result.is_ok(), true);
         // TODO: add check for all fields
     }
 
     #[tokio::test]
-    async fn get_onecall_with_select_fields() {
+    async fn get_one_call_with_select_fields() {
         let mut client = create_client();
-        client.onecall.fields.minutely = false;
-        client.onecall.fields.hourly = false;
+        client.one_call.fields.minutely = false;
+        client.one_call.fields.hourly = false;
         let setup = Setup::new();
-        let result = client.onecall.call(setup.lat, setup.lon).await;
+        let result = client.one_call.call(setup.lat, setup.lon).await;
 
         assert_eq!(result.is_ok(), true);
         // TODO: add check for removed fields as null
     }
 
     #[tokio::test]
-    async fn get_historical_onecall() {
+    async fn get_historical_one_call() {
         let client = create_client();
         let setup = Setup::new();
-        let result = client.onecall.call_historical_data(setup.lat, setup.lon, 643803200).await;
+        let result = client.one_call.call_historical_data(setup.lat, setup.lon, 643803200).await;
 
         assert_eq!(result.is_ok(), true);
     }

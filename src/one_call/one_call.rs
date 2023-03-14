@@ -1,6 +1,7 @@
+use std::fmt;
 use crate::languages::Language;
 use crate::units::Units;
-use crate::responses::onecall_response::OneCallResponse;
+use crate::responses::one_call_response::OneCallResponse;
 use crate::responses::historical_response::HistoricalResponse;
 
 pub struct Fields {
@@ -11,6 +12,20 @@ pub struct Fields {
     pub alerts: bool
 }
 
+impl fmt::Display for Fields {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "Fields: current: {}, minutely: {}, hourly: {}, daily: {}, alerts: {}",
+            self.current,
+            self.minutely,
+            self.hourly,
+            self.daily,
+            self.alerts
+        )
+    }
+}
+
 pub struct OneCall {
     api_key: String,
     units: Units,
@@ -18,6 +33,19 @@ pub struct OneCall {
     // fields are used to specify which should be included,
     // defaulting to true for all
     pub fields: Fields
+}
+
+impl fmt::Display for OneCall {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "OneCall: (api_key: {}, units: {}, language: {}, fields: {}, methods: [new, get_onecall, get_historical])",
+            self.api_key,
+            self.units,
+            self.language,
+            self.fields
+        )
+    }
 }
 
 impl OneCall {

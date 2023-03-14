@@ -3,14 +3,14 @@ in addition to the main "OneCall" route
 
 detailed info for each can be found here: https://openweathermap.org/api
 
-current weather: https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-hourly: https://pro.openweathermap.org/data/2.5/forecast/hourly?lat={lat}&lon={lon}&appid={API key}
-daily: api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API key}
-climate: https://pro.openweathermap.org/data/2.5/forecast/climate?lat={lat}&lon={lon}&appid={API key}
+current weather(lat, lon): https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+hourly(lat,lon,cnt): https://pro.openweathermap.org/data/2.5/forecast/hourly?lat={lat}&lon={lon}&appid={API key}
+daily(lat, ln, cnt): api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API key}
+climate(lat, ln, cnt): https://pro.openweathermap.org/data/2.5/forecast/climate?lat={lat}&lon={lon}&appid={API key}
 bulk: https://bulk.openweathermap.org/snapshot/{BULK_FILE_NAME}?appid={API key}
 alerts: push notifications via custom setup, contact openweather
 solar radiation: http://api.openweathermap.org/data/2.5/solar_radiation?lat={lat}&lon={lon}&appid={API key}
-5 day / 3 hour: api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+5 day / 3 hour(lat, lon,cnt): api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 road risk: https://api.openweathermap.org/data/2.5/roadrisk?appid={API key}
 
 history: https://history.openweathermap.org/data/2.5/history/city?lat={lat}&lon={lon}&type=hour&start={start}&end={end}&appid={API key}

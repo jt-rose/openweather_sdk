@@ -1,30 +1,58 @@
 use serde::{ Serialize, Deserialize};
 use crate::responses::weather::Weather;
+use std::fmt;
+use std::fmt::Formatter;
+use crate::response_elements::clouds::Clouds;
+use crate::response_elements::rain::Rain;
+use crate::response_elements::wind::Wind;
+use crate::responses::coord::Coord;
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Wind {
-    pub speed: f64,
-    pub deg: i64,
-    pub gust: f64
-}
+// #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Copy, Clone)]
+// pub struct Wind {
+//     pub speed: f64,
+//     pub deg: i64,
+//     pub gust: f64
+// }
+//
+// impl fmt::Display for Wind {
+// fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+//     write!(
+//         f,
+//         "Wind: (speed: {}, degree: {}, gust: {})",
+//         self.speed,
+//         self.deg,
+//         self.gust
+//     )
+// }
+// }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Clouds {
-    pub all: i64
-}
+// #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Copy, Clone)]
+// pub struct Clouds {
+//     pub all: i64
+// }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Rain {
-    #[serde(alias = "3h")]
-    pub volume_over_three_hours: f64
-}
+// #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Copy, Clone)]
+// pub struct Rain {
+//     #[serde(alias = "3h")]
+//     pub volume_over_three_hours: f64
+// }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct Sys {
     pub pod: String
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+impl fmt::Display for Sys {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "System: (pod: {})",
+            self.pod,
+        )
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq,  Default, Copy, Clone)]
 pub struct Main {
     pub temp: f64,
     pub feels_like: f64,
@@ -38,7 +66,25 @@ pub struct Main {
     pub temp_kf: f64
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+impl fmt::Display for Main {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "Main: (temp: {}, feels_like: {}, temp_min: {}, temp_max: {}, pressure: {}, sea_level: {}, ground_level: {}, humidity: {}, temp_kf: {})",
+            self.temp,
+            self.feels_like,
+            self.temp_min,
+            self.temp_max,
+            self.pressure,
+            self.sea_level,
+            self.ground_level,
+            self.humidity,
+            self.temp_kf
+        )
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq, Default, Clone)]
 pub struct ForecastDescription {
     #[serde(alias = "dt")]
     pub datetime: u64,
@@ -53,7 +99,39 @@ pub struct ForecastDescription {
     pub dt_txt: String
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+impl fmt::Display for ForecastDescription {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut weather_list = String::new();
+        weather_list.push_str("[ ");
+        for weather in &self.weather {
+            weather_list.push_str(&format!("{}", weather));
+        }
+        weather_list.push_str(" ]");
+
+        let rain_string;
+        match &self.rain {
+            Some(rain) => rain_string = format!("{}", rain),
+            None => rain_string = "None".to_string()
+        }
+
+        write!(
+            f,
+            "ForecastDescription: (datetime: {}, main: {}, weather: {}, clouds: {}, wind: {}, visibility: {}, pop: {}, rain: {}, sys: {}, dt_txt: {})",
+            self.datetime,
+            self.main,
+            weather_list,
+            self.clouds,
+            self.wind,
+            self.visibility,
+            self.pop,
+            rain_string,
+            self.sys,
+            self.dt_txt
+        )
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct City {
     pub id: u64,
     pub name: String,
@@ -65,17 +143,48 @@ pub struct City {
     pub sunset: u64
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Coord {
-    pub lat: f64,
-    pub lon: f64
+impl fmt::Display for City {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "City: (country: {}, name: {}, id: {}, coord: {}, population: {}, timezone: {}, sunrise: {}, sunset: {})",
+            self.country,
+            self.name,
+            self.id,
+            self.coord,
+            self.population,
+            self.timezone,
+            self.sunrise,
+            self.sunset
+        )
+    }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Default, Clone)]
 pub struct ForecastResponse {
     pub cod: String,
     pub message: i64,
     pub cnt: i64,
     pub list: Vec<ForecastDescription>,
     pub city: City,
+}
+
+impl fmt::Display for ForecastResponse {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let mut list_items = String::new();
+        list_items.push_str("[");
+        for item in &self.list {
+            list_items.push_str(&format!("{}, ", item));
+        }
+        list_items.push_str("]");
+        write!(
+            f,
+            "ForecastResponse: (cod: {}, message: {}, cnt: {}, list: {}, city: {})",
+            self.cod,
+            self.message,
+            self.cnt,
+            list_items,
+            self.city
+        )
+    }
 }

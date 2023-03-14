@@ -2,11 +2,24 @@ use reqwest;
 use super::forecast_response::ForecastResponse;
 use crate::units::Units;
 use crate::languages::Language;
+use std::fmt;
 
 pub struct Forecast {
     api_key: String,
     units: Units,
     language: Language,
+}
+
+impl fmt::Display for Forecast {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "Forecast: (api_key: {}, units: {}, language: {}, methods: [new, get_forecast])",
+            self.api_key,
+            self.units,
+            self.language
+        )
+    }
 }
 
 impl Forecast {

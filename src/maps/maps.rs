@@ -6,6 +6,16 @@ pub struct Maps {
     api_key: String
 }
 
+impl std::fmt::Display for Maps {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "Maps: (api_key: {}, methods: [new, get_cloud_map, get_precipitation_map, get_pressure_map, get_wind_speed_map, get_temperature_map])",
+            self.api_key
+        )
+    }
+}
+
 impl Maps {
     pub fn new(api_key: String) -> Self {
         Self {

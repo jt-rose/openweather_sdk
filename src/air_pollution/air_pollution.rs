@@ -1,7 +1,20 @@
+use std::fmt;
+use serde::{Serialize, Deserialize};
 use crate::air_pollution::air_pollution_response::AirPollutionResponse;
 
+#[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct AirPollution {
     api_key: String,
+}
+
+impl fmt::Display for AirPollution {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "AirPollution: (api_key: {}, methods: [new, get_current_air_pollution, get_forecast_air_pollution, get_historical_air_pollution])",
+            self.api_key
+        )
+    }
 }
 
 impl AirPollution {

@@ -1,4 +1,6 @@
 use serde::{ Serialize, Deserialize };
+use std::fmt;
+use crate::utils::display_option;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct LocalNames {
@@ -43,6 +45,56 @@ pub struct LocalNames {
     pub zu: Option<String>
 }
 
+impl fmt::Display for LocalNames {
+
+
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "LocalNames: (af: {}, ar: {}, ascii: {}, az: {}, bg: {}, ca: {}, da: {}, de: {}, el: {}, en: {}, eu: {}, fa: {}, feature_name: {}, fi: {}, fr: {}, gl: {}, he: {}, hi: {}, hr: {}, hu: {}, id: {}, it: {}, ja: {}, la: {}, lt: {}, mk: {}, nl: {}, no: {}, pl: {}, pt: {}, ro: {}, ru: {}, sk: {}, sl: {}, sr: {}, th: {}, tr: {}, vi: {}, zu: {})",
+            display_option(&self.af),
+            display_option(&self.ar),
+            display_option(&self.ascii),
+            display_option(&self.az),
+            display_option(&self.bg),
+            display_option(&self.ca),
+            display_option(&self.da),
+            display_option(&self.de),
+            display_option(&self.el),
+            display_option(&self.en),
+            display_option(&self.eu),
+            display_option(&self.fa),
+            display_option(&self.feature_name),
+            display_option(&self.fi),
+            display_option(&self.fr),
+            display_option(&self.gl),
+            display_option(&self.he),
+            display_option(&self.hi),
+            display_option(&self.hr),
+            display_option(&self.hu),
+            display_option(&self.id),
+            display_option(&self.it),
+            display_option(&self.ja),
+            display_option(&self.la),
+            display_option(&self.lt),
+            display_option(&self.mk),
+            display_option(&self.nl),
+            display_option(&self.no),
+            display_option(&self.pl),
+            display_option(&self.pt),
+            display_option(&self.ro),
+            display_option(&self.ru),
+            display_option(&self.sk),
+            display_option(&self.sl),
+            display_option(&self.sr),
+            display_option(&self.th),
+            display_option(&self.tr),
+            display_option(&self.vi),
+            display_option(&self.zu),
+        )
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct GeocodingResponse {
     pub name: String,
@@ -53,6 +105,21 @@ pub struct GeocodingResponse {
     pub state: Option<String>
 }
 
+impl fmt::Display for GeocodingResponse {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "GeocodingResponse: (name: {}, local_names: {}, lat: {}, lon: {}, country: {}, state: {})",
+            self.name,
+            display_option(&self.local_names),
+            self.lat,
+            self.lon,
+            self.country,
+            display_option(&self.state),
+        )
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ZipCodeResponse {
     pub zip: String,
@@ -60,4 +127,18 @@ pub struct ZipCodeResponse {
     pub lat: f64,
     pub lon: f64,
     pub country: String
+}
+
+impl fmt::Display for ZipCodeResponse {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "ZipCodeResponse: (zip: {}, name: {}, lat: {}, lon: {}, country: {})",
+            self.zip,
+            self.name,
+            self.lat,
+            self.lon,
+            self.country,
+        )
+    }
 }

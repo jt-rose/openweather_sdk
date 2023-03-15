@@ -1,6 +1,7 @@
 use std::fmt;
+use serde::{ Serialize, Deserialize};
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Copy, Clone)]
 pub enum Language {
     Afrikaans,
     Albanian,
@@ -102,5 +103,11 @@ impl fmt::Display for Language {
                 Self::Zulu => "zu"
             }
         )
+    }
+}
+
+impl Default for Language {
+    fn default() -> Self {
+        Self::English
     }
 }

@@ -1,6 +1,7 @@
 use std::fmt;
+use serde::{ Serialize, Deserialize};
 
-#[derive(Copy, Clone)]
+#[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Copy, Clone)]
 pub enum Units {
     Standard,
     Metric,
@@ -18,5 +19,11 @@ impl fmt::Display for Units {
                 Self::Imperial => "imperial"
             }
         )
+    }
+}
+
+impl Default for Units {
+    fn default() -> Self {
+        Self::Standard
     }
 }

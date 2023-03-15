@@ -1,8 +1,8 @@
 use std::fmt;
 use crate::languages::Language;
 use crate::units::Units;
-use crate::responses::one_call_response::OneCallResponse;
-use crate::responses::historical_response::HistoricalResponse;
+use crate::one_call::one_call_response::OneCallResponse;
+use crate::one_call::historical_response::HistoricalResponse;
 
 pub struct Fields {
     pub current: bool,

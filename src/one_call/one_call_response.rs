@@ -1,5 +1,5 @@
 use serde::{ Serialize, Deserialize };
-use super::weather::Weather;
+use crate::response_elements::weather::Weather;
 use std::fmt;
 use crate::utils::display_option;
 

@@ -1,6 +1,5 @@
 pub mod languages;
 pub mod units;
-pub mod responses;
 pub mod one_call;
 pub mod forecast;
 // pub mod settings;
@@ -62,7 +61,6 @@ mod tests {
         let result = client.one_call.call(setup.lat, setup.lon).await;
 
         assert_eq!(result.is_ok(), true);
-        // TODO: add check for all fields
     }
 
     #[tokio::test]

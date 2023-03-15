@@ -1,7 +1,7 @@
 use std::fmt;
 use std::fmt::Formatter;
 use serde::{Serialize, Deserialize};
-use crate::responses::coord::Coord;
+use crate::response_elements::coord::Coord;
 
 #[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Copy, Clone)]
 pub struct Components {

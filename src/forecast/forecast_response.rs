@@ -1,11 +1,11 @@
 use serde::{ Serialize, Deserialize};
-use crate::responses::weather::Weather;
+use crate::response_elements::weather::Weather;
 use std::fmt;
 use std::fmt::Formatter;
 use crate::response_elements::clouds::Clouds;
 use crate::response_elements::rain::Rain;
 use crate::response_elements::wind::Wind;
-use crate::responses::coord::Coord;
+use crate::response_elements::coord::Coord;
 
 // #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Copy, Clone)]
 // pub struct Wind {

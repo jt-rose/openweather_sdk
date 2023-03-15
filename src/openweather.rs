@@ -1,4 +1,5 @@
 use std::fmt;
+use serde::{ Serialize, Deserialize};
 use crate::air_pollution::air_pollution::AirPollution;
 use crate::units::Units;
 use crate::languages::Language;
@@ -7,6 +8,7 @@ use crate::forecast::forecast::Forecast;
 use crate::geocoding::geocoding::Geocoding;
 use crate::maps::maps::Maps;
 
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct OpenWeather {
     pub one_call: OneCall,
     pub forecast: Forecast,

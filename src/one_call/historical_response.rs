@@ -3,7 +3,7 @@ use crate::response_elements::weather::Weather;
 use crate::utils::display_option;
 use std::fmt;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct HistoricalData {
     #[serde(alias = "dt")]
     pub datetime: i64,
@@ -52,7 +52,7 @@ impl fmt::Display for HistoricalData {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct HistoricalResponse {
     pub lat: f64,
     pub lon: f64,

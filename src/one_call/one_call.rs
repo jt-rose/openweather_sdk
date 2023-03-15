@@ -1,9 +1,11 @@
 use std::fmt;
+use serde::{ Serialize, Deserialize};
 use crate::languages::Language;
 use crate::units::Units;
 use crate::one_call::one_call_response::OneCallResponse;
 use crate::one_call::historical_response::HistoricalResponse;
 
+#[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Copy, Clone)]
 pub struct Fields {
     pub current: bool,
     pub minutely: bool,
@@ -26,6 +28,19 @@ impl fmt::Display for Fields {
     }
 }
 
+impl Default for Fields {
+    fn default() -> Self {
+        Self {
+            current: true,
+            minutely: true,
+            hourly: true,
+            daily: true,
+            alerts: true
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct OneCall {
     api_key: String,
     units: Units,

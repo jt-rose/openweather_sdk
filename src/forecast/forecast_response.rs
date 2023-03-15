@@ -54,7 +54,7 @@ impl fmt::Display for Main {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Default, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct ForecastDescription {
     #[serde(alias = "dt")]
     pub datetime: u64,
@@ -130,7 +130,7 @@ impl fmt::Display for City {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Default, Clone)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct ForecastResponse {
     pub cod: String,
     pub message: i64,

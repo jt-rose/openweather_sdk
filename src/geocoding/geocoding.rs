@@ -1,5 +1,7 @@
 use super::geocoding_response::{GeocodingResponse, ZipCodeResponse};
+use serde::{Deserialize, Serialize};
 
+#[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct Geocoding {
     api_key: String
 }

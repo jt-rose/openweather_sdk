@@ -1,7 +1,7 @@
 use serde::{ Serialize, Deserialize};
 use std::fmt;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Copy, Clone)]
 pub struct Snow {
     #[serde(alias = "1h")]
     pub volume_over_last_hour: f64

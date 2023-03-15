@@ -6,7 +6,7 @@ use crate::response_elements::temp::Temp;
 use std::fmt;
 use crate::utils::display_option;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct Current {
     pub dt: i64,
     pub sunrise: i64,
@@ -60,7 +60,7 @@ impl fmt::Display for Current {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct FeelsLike {
     pub day: f64,
     pub night: f64,
@@ -81,7 +81,7 @@ impl fmt::Display for FeelsLike {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct Daily {
     #[serde(alias = "dt")]
     pub datetime: i64,
@@ -142,7 +142,7 @@ impl fmt::Display for Daily {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct Hourly {
     #[serde(alias = "dt")]
     pub datetime: i64,
@@ -195,7 +195,7 @@ impl fmt::Display for Hourly {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct Minutely {
     #[serde(alias = "dt")]
     pub datetime: i64,
@@ -213,7 +213,7 @@ impl fmt::Display for Minutely {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct Alert {
     pub sender_name: String,
     pub event: String,
@@ -245,7 +245,7 @@ impl fmt::Display for Alert {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct OneCallResponse {
     pub lat: f64,
     pub lon: f64,

@@ -1,5 +1,7 @@
 use std::fmt;
+use serde::{ Serialize, Deserialize};
 
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Copy, Clone)]
 pub enum MapLayer {
     Clouds,
     Precipitation,
@@ -21,5 +23,11 @@ impl fmt::Display for MapLayer {
                 MapLayer::Temperature => "temp_new",
             }
         )
+    }
+}
+
+impl Default for MapLayer {
+    fn default() -> Self {
+        MapLayer::Temperature
     }
 }

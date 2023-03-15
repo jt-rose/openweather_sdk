@@ -1,7 +1,8 @@
 use reqwest::Response;
+use serde::{Deserialize, Serialize};
 use super::map_layer::MapLayer;
 
-
+#[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Default, Clone)]
 pub struct Maps {
     api_key: String
 }

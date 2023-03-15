@@ -2,7 +2,7 @@ use serde::{ Serialize, Deserialize };
 use std::fmt;
 use crate::utils::display_option;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct LocalNames {
     pub af: Option<String>,
     pub ar: Option<String>,
@@ -46,8 +46,6 @@ pub struct LocalNames {
 }
 
 impl fmt::Display for LocalNames {
-
-
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
@@ -95,7 +93,7 @@ impl fmt::Display for LocalNames {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct GeocodingResponse {
     pub name: String,
     pub local_names: Option<LocalNames>,
@@ -120,7 +118,7 @@ impl fmt::Display for GeocodingResponse {
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct ZipCodeResponse {
     pub zip: String,
     pub name: String,

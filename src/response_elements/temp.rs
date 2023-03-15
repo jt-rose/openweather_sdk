@@ -1,7 +1,7 @@
 use serde::{ Serialize, Deserialize};
 use std::fmt;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Copy, Clone)]
 pub struct Temp {
     pub day: f64,
     pub min: f64,

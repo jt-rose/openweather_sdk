@@ -7,36 +7,6 @@ use crate::response_elements::rain::Rain;
 use crate::response_elements::wind::Wind;
 use crate::response_elements::coord::Coord;
 
-// #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Copy, Clone)]
-// pub struct Wind {
-//     pub speed: f64,
-//     pub deg: i64,
-//     pub gust: f64
-// }
-//
-// impl fmt::Display for Wind {
-// fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-//     write!(
-//         f,
-//         "Wind: (speed: {}, degree: {}, gust: {})",
-//         self.speed,
-//         self.deg,
-//         self.gust
-//     )
-// }
-// }
-
-// #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Copy, Clone)]
-// pub struct Clouds {
-//     pub all: i64
-// }
-
-// #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Copy, Clone)]
-// pub struct Rain {
-//     #[serde(alias = "3h")]
-//     pub volume_over_three_hours: f64
-// }
-
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct Sys {
     pub pod: String

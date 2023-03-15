@@ -1,39 +1,10 @@
 use serde::{ Serialize, Deserialize };
 use crate::response_elements::weather::Weather;
+use crate::response_elements::rain::Rain;
+use crate::response_elements::snow::Snow;
+use crate::response_elements::temp::Temp;
 use std::fmt;
 use crate::utils::display_option;
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Rain {
-    #[serde(alias = "1h")]
-    pub volume_over_last_hour: f64
-}
-
-impl fmt::Display for Rain {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "Rain: (volume_over_last_hour: {})",
-            self.volume_over_last_hour,
-        )
-    }
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Snow {
-    #[serde(alias = "1h")]
-    pub volume_over_last_hour: f64
-}
-
-impl fmt::Display for Snow {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "Snow: (volume_over_last_hour: {})",
-            self.volume_over_last_hour,
-        )
-    }
-}
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Current {
@@ -85,31 +56,6 @@ impl fmt::Display for Current {
             display_option(&self.rain),
             display_option(&self.snow),
             weather_list
-        )
-    }
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Temp {
-    pub day: f64,
-    pub min: f64,
-    pub max: f64,
-    pub night: f64,
-    pub eve: f64,
-    pub morn: f64
-}
-
-impl fmt::Display for Temp {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "Temp: (day: {}, min: {}, max: {}, night: {}, eve: {}, morn: {})",
-            self.day,
-            self.min,
-            self.max,
-            self.night,
-            self.eve,
-            self.morn
         )
     }
 }

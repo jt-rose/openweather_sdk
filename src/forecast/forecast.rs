@@ -3,7 +3,9 @@ use super::forecast_response::ForecastResponse;
 use crate::units::Units;
 use crate::languages::Language;
 use std::fmt;
+use serde::{ Serialize, Deserialize};
 
+#[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct Forecast {
     api_key: String,
     units: Units,

@@ -1,2 +1,2 @@
 pub mod forecast;
-mod forecast_response;
+pub mod forecast_response;

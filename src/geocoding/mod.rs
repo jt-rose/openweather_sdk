@@ -1,2 +1,2 @@
 pub mod geocoding;
-mod geocoding_response;
+pub mod geocoding_response;

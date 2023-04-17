@@ -45,8 +45,7 @@ impl Forecast {
             self.api_key)
     }
 
-    pub async fn get_forecast(&self, lat: f64,lon: f64, count: u8) -> Result<ForecastResponse, Box<dyn std::error::Error>> {
-        // self.query(lat, lon, "").await?
+    pub async fn call(&self, lat: f64, lon: f64, count: u8) -> Result<ForecastResponse, Box<dyn std::error::Error>> {
         let url = self.format_query(lat, lon, "", count);
         let resp = reqwest::get(url)
             .await?

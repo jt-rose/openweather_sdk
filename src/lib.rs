@@ -129,32 +129,15 @@
 //! [Reqwest]: https://docs.rs/reqwest/0.11.3/reqwest/
 //! [Jeff Rose]: www.github.com/jt-rose
 
-
+mod openweather;
 mod languages;
 mod units;
-pub mod one_call;
-pub mod forecast;
-// pub mod settings;
-mod openweather;
-pub mod maps;
-pub mod air_pollution;
-pub mod geocoding;
-pub mod response_elements;
-pub mod utils;
+mod utils;
+pub mod responses;
 
-pub mod responses {
-    pub use crate::response_elements;
-    pub use crate::one_call::one_call_response::OneCallResponse;
-    pub use crate::one_call::historical_response::HistoricalResponse;
-    pub use crate::forecast::forecast_response::ForecastResponse;
-    pub use crate::maps::map_layer::MapLayer;
-    pub use crate::air_pollution::air_pollution_response::AirPollutionResponse;
-    pub use crate::geocoding::geocoding_response::GeocodingResponse;
-}
-
-pub use crate::openweather::OpenWeather;
 pub use crate::languages::Language;
 pub use crate::units::Units;
+pub use crate::openweather::{ OpenWeather, OneCall, Fields, Forecast, Maps, AirPollution, Geocoding};
 
 #[cfg(test)]
 mod tests {

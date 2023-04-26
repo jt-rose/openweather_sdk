@@ -1,8 +1,8 @@
 use serde::{ Serialize, Deserialize };
-use crate::response_elements::weather::Weather;
-use crate::response_elements::rain::Rain;
-use crate::response_elements::snow::Snow;
-use crate::response_elements::temp::Temp;
+use crate::responses::response_elements::Weather;
+use crate::responses::response_elements::Rain;
+use crate::responses::response_elements::Snow;
+use crate::responses::response_elements::Temp;
 use std::fmt;
 use crate::utils::display_option;
 
@@ -30,11 +30,11 @@ pub struct Current {
 impl fmt::Display for Current {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut weather_list = String::new();
-        weather_list.push_str("[");
+        weather_list.push('[');
         for weather in &self.weather {
             weather_list.push_str(&format!("{}, ", weather));
         }
-        weather_list.push_str("]");
+        weather_list.push(']');
 
         write!(
             f,
@@ -109,11 +109,11 @@ pub struct Daily {
 impl fmt::Display for Daily {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut weather_list = String::new();
-        weather_list.push_str("[");
+        weather_list.push('[');
         for weather in &self.weather {
             weather_list.push_str(&format!("{}, ", weather));
         }
-        weather_list.push_str("]");
+        weather_list.push(']');
 
         write!(
             f,
@@ -166,11 +166,11 @@ pub struct Hourly {
 impl fmt::Display for Hourly {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut weather_list = String::new();
-        weather_list.push_str("[");
+        weather_list.push('[');
         for weather in &self.weather {
             weather_list.push_str(&format!("{}, ", weather));
         }
-        weather_list.push_str("]");
+        weather_list.push(']');
 
         write!(
             f,
@@ -226,11 +226,11 @@ pub struct Alert {
 impl fmt::Display for Alert {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut tags_list = String::new();
-        tags_list.push_str("[");
+        tags_list.push('[');
         for tag in &self.tags {
             tags_list.push_str(&format!("{}, ", tag));
         }
-        tags_list.push_str("]");
+        tags_list.push(']');
 
         write!(
             f,
@@ -261,40 +261,40 @@ pub struct OneCallResponse {
 impl fmt::Display for OneCallResponse {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut minutely_list = String::new();
-        minutely_list.push_str("[");
+        minutely_list.push('[');
         if let Some(minutely) = &self.minutely {
             for minute in minutely {
                 minutely_list.push_str(&format!("{}, ", minute));
             }
         }
-        minutely_list.push_str("]");
+        minutely_list.push(']');
 
         let mut hourly_list = String::new();
-        hourly_list.push_str("[");
+        hourly_list.push('[');
         if let Some(hourly) = &self.hourly {
             for hour in hourly {
                 hourly_list.push_str(&format!("{}, ", hour));
             }
         }
-        hourly_list.push_str("]");
+        hourly_list.push(']');
 
         let mut daily_list = String::new();
-        daily_list.push_str("[");
+        daily_list.push('[');
         if let Some(daily) = &self.daily {
             for day in daily {
                 daily_list.push_str(&format!("{}, ", day));
             }
         }
-        daily_list.push_str("]");
+        daily_list.push(']');
 
         let mut alert_list = String::new();
-        alert_list.push_str("[");
+        alert_list.push('[');
         if let Some(alerts) = &self.alerts {
             for alert in alerts {
                 alert_list.push_str(&format!("{}, ", alert));
             }
         }
-        alert_list.push_str("]");
+        alert_list.push(']');
 
         write!(
             f,

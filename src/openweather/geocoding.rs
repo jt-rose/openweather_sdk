@@ -1,4 +1,4 @@
-use super::geocoding_response::{GeocodingResponse, ZipCodeResponse};
+use crate::responses::{GeocodingResponse, ZipCodeResponse};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
@@ -27,12 +27,12 @@ impl Geocoding {
      -> Result<Vec<GeocodingResponse>, Box<dyn std::error::Error>>{
         let mut q = city.to_string();
         if let Some(sc) = state_code {
-            q.push_str(",");
+            q.push(',');
             q.push_str(sc);
         }
 
         if let Some(cc) = country_code {
-            q.push_str(",");
+            q.push(',');
             q.push_str(cc);
         }
 
@@ -53,7 +53,7 @@ impl Geocoding {
     pub async fn get_geocoding_by_zip_code(&self, zip_code: &str, country_code: Option<&str>) -> Result<ZipCodeResponse, Box<dyn std::error::Error>> {
         let mut country = "".to_string();
         if let Some(cc) = country_code {
-            country.push_str(",");
+            country.push(',');
             country.push_str(cc);
         }
 

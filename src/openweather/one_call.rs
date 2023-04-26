@@ -2,8 +2,8 @@ use std::fmt;
 use serde::{ Serialize, Deserialize};
 use crate::languages::Language;
 use crate::units::Units;
-use crate::one_call::one_call_response::OneCallResponse;
-use crate::one_call::historical_response::HistoricalResponse;
+use crate::responses::OneCallResponse;
+use crate::responses::HistoricalResponse;
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Copy, Clone)]
 pub struct Fields {
@@ -106,19 +106,19 @@ impl OneCall {
     fn format_excluded_fields(&self) -> String {
         let mut excluded_fields = Vec::new();
 
-        if self.fields.current == false {
+        if !self.fields.current {
             excluded_fields.push("current")
         }
-        if self.fields.minutely == false {
+        if !self.fields.minutely {
             excluded_fields.push("minutely")
         }
-        if self.fields.hourly == false {
+        if !self.fields.hourly {
             excluded_fields.push("hourly")
         }
-        if self.fields.daily == false {
+        if !self.fields.daily {
             excluded_fields.push("daily")
         }
-        if self.fields.alerts == false {
+        if !self.fields.alerts {
             excluded_fields.push("alerts")
         }
 

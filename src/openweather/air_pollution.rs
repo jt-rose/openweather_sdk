@@ -1,6 +1,6 @@
 use std::fmt;
 use serde::{Serialize, Deserialize};
-use crate::air_pollution::air_pollution_response::AirPollutionResponse;
+use crate::responses::AirPollutionResponse;
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct AirPollution {

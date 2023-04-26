@@ -1,7 +1,7 @@
 use std::fmt;
 use std::fmt::Formatter;
 use serde::{Serialize, Deserialize};
-use crate::response_elements::coord::Coord;
+use crate::responses::response_elements::Coord;
 
 #[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Copy, Clone)]
 pub struct Components {
@@ -76,12 +76,12 @@ pub struct AirPollutionResponse {
 impl fmt::Display for AirPollutionResponse {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         let mut list_items = String::new();
-        list_items.push_str("[");
+        list_items.push('[');
         for item in &self.list {
             list_items.push_str(&format!("{}, ", item));
             list_items.push_str(", ");
         }
-        list_items.push_str("]");
+        list_items.push(']');
 
         write!(
             f,

@@ -1,12 +1,19 @@
+pub mod air_pollution;
+pub mod forecast;
+pub mod one_call;
+pub mod geocoding;
+pub mod maps;
+
+pub use air_pollution::AirPollution;
+pub use forecast::Forecast;
+pub use one_call::{OneCall, Fields};
+pub use geocoding::Geocoding;
+pub use maps::Maps;
+
 use std::fmt;
 use serde::{ Serialize, Deserialize};
-use crate::air_pollution::air_pollution::AirPollution;
 use crate::units::Units;
 use crate::languages::Language;
-use crate::one_call::one_call::OneCall;
-use crate::forecast::forecast::Forecast;
-use crate::geocoding::geocoding::Geocoding;
-use crate::maps::maps::Maps;
 
 #[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct OpenWeather {

@@ -1,5 +1,4 @@
-use reqwest;
-use super::forecast_response::ForecastResponse;
+use crate::responses::ForecastResponse;
 use crate::units::Units;
 use crate::languages::Language;
 use std::fmt;

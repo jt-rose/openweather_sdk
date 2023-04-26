@@ -1,5 +1,5 @@
 use serde::{ Serialize, Deserialize };
-use crate::response_elements::weather::Weather;
+use crate::responses::response_elements::Weather;
 use crate::utils::display_option;
 use std::fmt;
 
@@ -25,11 +25,11 @@ pub struct HistoricalData {
 impl fmt::Display for HistoricalData {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut weather_list = String::new();
-        weather_list.push_str("[");
+        weather_list.push('[');
         for weather in &self.weather {
             weather_list.push_str(&format!("{}, ", weather));
         }
-        weather_list.push_str("]");
+        weather_list.push(']');
 
         write!(
             f,
@@ -64,11 +64,11 @@ pub struct HistoricalResponse {
 impl fmt::Display for HistoricalResponse {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut data_list = String::new();
-        data_list.push_str("[");
+        data_list.push('[');
         for data in &self.data {
             data_list.push_str(&format!("{}, ", data));
         }
-        data_list.push_str("]");
+        data_list.push(']');
 
         write!(
             f,

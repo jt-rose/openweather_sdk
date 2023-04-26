@@ -1,11 +1,11 @@
 use serde::{ Serialize, Deserialize};
-use crate::response_elements::weather::Weather;
+use crate::responses::response_elements::Weather;
 use std::fmt;
 use std::fmt::Formatter;
-use crate::response_elements::clouds::Clouds;
-use crate::response_elements::rain::Rain;
-use crate::response_elements::wind::Wind;
-use crate::response_elements::coord::Coord;
+use crate::responses::response_elements::Clouds;
+use crate::responses::response_elements::Rain;
+use crate::responses::response_elements::Wind;
+use crate::responses::response_elements::Coord;
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct Sys {
@@ -78,11 +78,10 @@ impl fmt::Display for ForecastDescription {
         }
         weather_list.push_str(" ]");
 
-        let rain_string;
-        match &self.rain {
-            Some(rain) => rain_string = format!("{}", rain),
-            None => rain_string = "None".to_string()
-        }
+        let rain_string = match &self.rain {
+            Some(rain) => format!("{}", rain),
+            None => "None".to_string()
+        };
 
         write!(
             f,
@@ -142,11 +141,11 @@ pub struct ForecastResponse {
 impl fmt::Display for ForecastResponse {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut list_items = String::new();
-        list_items.push_str("[");
+        list_items.push('[');
         for item in &self.list {
             list_items.push_str(&format!("{}, ", item));
         }
-        list_items.push_str("]");
+        list_items.push(']');
         write!(
             f,
             "ForecastResponse: (cod: {}, message: {}, cnt: {}, list: {}, city: {})",

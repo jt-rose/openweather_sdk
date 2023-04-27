@@ -3,8 +3,11 @@ name = "openweather_sdk"
 version = "0.1.0"
 edition = "2021"
 authors = ["Jeff Rose"]
-description = "A simple SDK for the OpenWeather API"
+description = "a fully typed SDK for the OpenWeather API"
 license = "MIT"
+repository = "https://github.com/jt-rose/openweather_sdk"
+keywords = ["openweather", "weather"]
+categories = ["api-bindings"]
 
 [lib]
 doctest = false

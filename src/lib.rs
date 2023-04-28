@@ -75,11 +75,11 @@
 //! let y_tiles = 1;
 //!
 //! // get various types of map data
-//! let res = openweather.maps.get_cloud_map(zoom, x_tiles, y_tiles).await;
-//! let res2 = openweather.maps.get_precipitation_map(zoom, x_tiles, y_tiles).await;
-//! let res3 = openweather.maps.get_temperature_map(zoom, x_tiles, y_tiles).await;
-//! let res4 = openweather.maps.get_wind_speed_map(zoom, x_tiles, y_tiles).await;
-//! let res5 = openweather.maps.get_pressure_map(zoom, x_tiles, y_tiles).await;
+//! let cloud_map = openweather.maps.get_cloud_map(zoom, x_tiles, y_tiles).await;
+//! let precip_map = openweather.maps.get_precipitation_map(zoom, x_tiles, y_tiles).await;
+//! let temp_map = openweather.maps.get_temperature_map(zoom, x_tiles, y_tiles).await;
+//! let wind_spd_map = openweather.maps.get_wind_speed_map(zoom, x_tiles, y_tiles).await;
+//! let pressure_map = openweather.maps.get_pressure_map(zoom, x_tiles, y_tiles).await;
 //!
 //! ```
 //!
@@ -96,8 +96,7 @@
 //! // get historical air pollution data with start and end timestamps
 //! let start = 1606223802;
 //! let end = 1606482999;
-//! let res2 = openweather.air_pollution.get_historical_air_pollution(lat, lon, start, end).await;
-//!
+//! let res3 = openweather.air_pollution.get_historical_air_pollution(lat, lon, start, end).await;
 //! ```
 //!
 //! ### Geocoding
@@ -115,7 +114,6 @@
 //! let res = openweather.geocoding.get_geocoding(city, Some(state), Some(country), limit).await;
 //! let res2 = openweather.geocoding.get_geocoding_by_zip_code("20001", None).await;
 //! let res3 = openweather.geocoding.get_location_data(lat, lon, limit).await;
-//!
 //! ```
 //!
 //! [OpenWeather API]: https://openweathermap.org/api

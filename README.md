@@ -19,35 +19,47 @@ This library is a small rust wrapper for making requests to the [OpenWeather API
 
 #### Initialize the library
 ```rust
-use openweather_sdk::prelude::{ OpenWeather, Units, Language };
+use openweather_sdk::{OpenWeather, Units, Language};
 
 let openweather = OpenWeather::new(
     "MY_PRIVATE_API_KEY".to_string(),
     Units::Imperial,
     Language::English
 );
+
+let lat = 38.795021;
+let lon = -77.273300;
+let count = 10;
+
+let forecast_response = openweather.forecast.call(lat, lon, count).await;
 ```
 
 #### OneCall Query
 ```rust
 let lat = 38.795021;
 let lon = -77.273300;
+let historical_date = 1606223802;
 
+// get one call data for current weather
 let res = openweather.one_call.call(lat, lon).await;
-let res2 = openweather.one_call.historical(lat, lon, 1606223802).await;
 
-// Select fields
+// get one call data for historical weather
+let res2 = openweather.one_call.historical(lat, lon, historical_date).await;
+
+// customize response fields
 openweather.one_call.fields.minutely = false;
 openweather.one_call.fields.hourly = false;
-let res4 = openweather.one_call.call(lat, lon).await;
+let res3 = openweather.one_call.call(lat, lon).await;
 ```
 
 #### Forecast Query
 ```rust
 let lat = 38.795021;
 let lon = -77.273300;
+let count = 10;
 
-let res = openweather.forecast.call(lat, lon).await;
+// get forecast data with specified number of timestamps
+let res = openweather.forecast.call(lat, lon, count).await;
 ```
 
 #### Maps Query
@@ -58,11 +70,12 @@ let zoom = 1;
 let x_tiles = 1;
 let y_tiles = 1;
 
-let res = openweather.maps.get_cloud_map(zoom, x_tiles, y_tiles).await;
-let res2 = openweather.maps.get_precipitation_map(zoom, x_tiles, y_tiles).await;
-let res3 = openweather.maps.get_temperature_map(zoom, x_tiles, y_tiles).await;
-let res4 = openweather.maps.get_wind_speed_map(zoom, x_tiles, y_tiles).await;
-let res5 = openweather.maps.get_pressure_map(zoom, x_tiles, y_tiles).await;
+// get various types of map data
+let cloud_map = openweather.maps.get_cloud_map(zoom, x_tiles, y_tiles).await;
+let precip_map = openweather.maps.get_precipitation_map(zoom, x_tiles, y_tiles).await;
+let temp_map = openweather.maps.get_temperature_map(zoom, x_tiles, y_tiles).await;
+let wind_spd_map = openweather.maps.get_wind_speed_map(zoom, x_tiles, y_tiles).await;
+let pressure_map = openweather.maps.get_pressure_map(zoom, x_tiles, y_tiles).await;
 ```
 
 #### Air Pollution Query
@@ -70,12 +83,14 @@ let res5 = openweather.maps.get_pressure_map(zoom, x_tiles, y_tiles).await;
 let lat = 38.795021;
 let lon = -77.273300;
 
+// get current and forecast air pollution data
 let res = openweather.air_pollution.get_current_air_pollution(lat, lon).await;
-let res2 = openweather.air_pollution.get_forecast_air_pollution(lat, lon).await;```
+let res2 = openweather.air_pollution.get_forecast_air_pollution(lat, lon).await;
 
+// get historical air pollution data with start and end timestamps
 let start = 1606223802;
 let end = 1606482999;
-let res2 = openweather.air_pollution.get_historical_air_pollution(lat, lon, start, end).await;
+let res3 = openweather.air_pollution.get_historical_air_pollution(lat, lon, start, end).await;
 ```
 
 #### Geocoding Query

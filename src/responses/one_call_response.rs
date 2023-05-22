@@ -199,7 +199,7 @@ impl fmt::Display for Hourly {
 pub struct Minutely {
     #[serde(alias = "dt")]
     pub datetime: i64,
-    pub precipitation: u64
+    pub precipitation: f64
 }
 
 impl fmt::Display for Minutely {

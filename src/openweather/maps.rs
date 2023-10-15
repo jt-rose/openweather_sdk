@@ -69,6 +69,7 @@ impl Maps {
         let url = self.format_query(layer, zoom, x_tiles, y_tiles);
         let resp = reqwest::get(url)
             .await?;
+        resp.error_for_status_ref()?;
 
         Ok(resp)
     }

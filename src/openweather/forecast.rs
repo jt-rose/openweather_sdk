@@ -47,11 +47,12 @@ impl Forecast {
     pub async fn call(&self, lat: f64, lon: f64, count: u8) -> Result<ForecastResponse, Box<dyn std::error::Error>> {
         let url = self.format_query(lat, lon, "", count);
         let resp = reqwest::get(url)
-            .await?
+            .await?;
+        let res = resp
             .json::<ForecastResponse>()
             .await?;
 
-        Ok(resp)
+        Ok(res)
     }
 
     // TODO: confirm response type for hourly, daily, and climate

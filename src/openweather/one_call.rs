@@ -133,19 +133,22 @@ impl OneCall {
 
     pub async fn call(&self, lat: f64, lon: f64) -> Result<OneCallResponse, Box<dyn std::error::Error>> {
         let resp = reqwest::get(self.format_url_query(lat, lon))
-            .await?
+            .await?;
+        resp.error_for_status_ref()?;
+        let res = resp
             .json::<OneCallResponse>()
             .await?;
 
-        Ok(resp)
+        Ok(res)
     }
 
     pub async fn call_historical_data(&self, lat: f64, lon: f64, datetime: i64) -> Result<HistoricalResponse, Box<dyn std::error::Error>> {
         let resp = reqwest::get(self.format_historical_query(lat, lon, datetime))
-            .await?
+            .await?;
+        let res = resp
             .json::<HistoricalResponse>()
             .await?;
 
-        Ok(resp)
+        Ok(res)
     }
 }

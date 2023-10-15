@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct Geocoding {
-    api_key: String
+    api_key: String,
 }
 
 impl std::fmt::Display for Geocoding {
@@ -24,7 +24,7 @@ impl Geocoding {
     }
 
     pub async fn get_geocoding(&self, city: &str, state_code: Option<&str>, country_code: Option<&str>, limit: u8)
-     -> Result<Vec<GeocodingResponse>, Box<dyn std::error::Error>>{
+                               -> Result<Vec<GeocodingResponse>, Box<dyn std::error::Error>> {
         let mut q = city.to_string();
         if let Some(sc) = state_code {
             q.push(',');
@@ -42,12 +42,14 @@ impl Geocoding {
             limit,
             self.api_key
         );
-            let resp = reqwest::get(url)
-        .await?
-        .json::<Vec<GeocodingResponse>>()
+        let resp = reqwest::get(url)
+            .await?;
+        resp.error_for_status_ref()?;
+        let res = resp
+            .json::<Vec<GeocodingResponse>>()
             .await?;
 
-        Ok(resp)
+        Ok(res)
     }
 
     pub async fn get_geocoding_by_zip_code(&self, zip_code: &str, country_code: Option<&str>) -> Result<ZipCodeResponse, Box<dyn std::error::Error>> {
@@ -65,11 +67,13 @@ impl Geocoding {
         );
 
         let resp = reqwest::get(url)
-            .await?
+            .await?;
+        resp.error_for_status_ref()?;
+        let res = resp
             .json::<ZipCodeResponse>()
             .await?;
 
-        Ok(resp)
+        Ok(res)
     }
 
     pub async fn get_location_data(&self, lat: f64, lon: f64, limit: u8) -> Result<Vec<GeocodingResponse>, Box<dyn std::error::Error>> {
@@ -82,10 +86,12 @@ impl Geocoding {
         );
 
         let resp = reqwest::get(url)
-            .await?
+            .await?;
+        resp.error_for_status_ref()?;
+        let res = resp
             .json::<Vec<GeocodingResponse>>()
             .await?;
 
-        Ok(resp)
+        Ok(res)
     }
 }

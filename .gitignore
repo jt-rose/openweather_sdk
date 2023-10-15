@@ -1,7 +1,4 @@
 /target
 /Cargo.lock
 .env
-/.idea/modules.xml
-/.idea/openweather_sdk.iml
-/.idea/vcs.xml
-/.idea/.gitignore
+.idea

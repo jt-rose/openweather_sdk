@@ -1,6 +1,7 @@
 use reqwest::Response;
 use std::fmt;
 use serde::{Deserialize, Serialize};
+use crate::responses::ErrorResponse;
 
 #[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Copy, Clone)]
 pub enum MapLayer {
@@ -69,9 +70,10 @@ impl Maps {
         let url = self.format_query(layer, zoom, x_tiles, y_tiles);
         let resp = reqwest::get(url)
             .await?;
-        resp.error_for_status_ref()?;
-
-        Ok(resp)
+        match resp.status() {
+            reqwest::StatusCode::OK => Ok(resp),
+            _ => Err(Box::new(ErrorResponse::new(resp).await?)),
+        }
     }
 
     pub async fn get_cloud_map(&self, zoom: u8, x_tiles: u8, y_tiles: u8) -> Result<Response, Box<dyn std::error::Error>> {

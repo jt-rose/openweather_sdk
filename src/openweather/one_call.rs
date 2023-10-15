@@ -1,9 +1,8 @@
 use std::fmt;
-use serde::{ Serialize, Deserialize};
+use serde::{Serialize, Deserialize};
 use crate::languages::Language;
 use crate::units::Units;
-use crate::responses::OneCallResponse;
-use crate::responses::HistoricalResponse;
+use crate::responses::{OneCallResponse, HistoricalResponse, response_handler};
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Copy, Clone)]
 pub struct Fields {
@@ -11,7 +10,7 @@ pub struct Fields {
     pub minutely: bool,
     pub hourly: bool,
     pub daily: bool,
-    pub alerts: bool
+    pub alerts: bool,
 }
 
 impl fmt::Display for Fields {
@@ -35,7 +34,7 @@ impl Default for Fields {
             minutely: true,
             hourly: true,
             daily: true,
-            alerts: true
+            alerts: true,
         }
     }
 }
@@ -47,7 +46,7 @@ pub struct OneCall {
     language: Language,
     // fields are used to specify which should be included,
     // defaulting to true for all
-    pub fields: Fields
+    pub fields: Fields,
 }
 
 impl fmt::Display for OneCall {
@@ -65,7 +64,7 @@ impl fmt::Display for OneCall {
 
 impl OneCall {
     pub fn new(api_key: String, units: Units, language: Language) -> Self {
-        Self{
+        Self {
             api_key,
             units,
             language,
@@ -74,8 +73,8 @@ impl OneCall {
                 minutely: true,
                 hourly: true,
                 daily: true,
-                alerts: true
-            }
+                alerts: true,
+            },
         }
     }
 
@@ -134,21 +133,12 @@ impl OneCall {
     pub async fn call(&self, lat: f64, lon: f64) -> Result<OneCallResponse, Box<dyn std::error::Error>> {
         let resp = reqwest::get(self.format_url_query(lat, lon))
             .await?;
-        resp.error_for_status_ref()?;
-        let res = resp
-            .json::<OneCallResponse>()
-            .await?;
-
-        Ok(res)
+        response_handler::<OneCallResponse>(resp).await
     }
 
     pub async fn call_historical_data(&self, lat: f64, lon: f64, datetime: i64) -> Result<HistoricalResponse, Box<dyn std::error::Error>> {
         let resp = reqwest::get(self.format_historical_query(lat, lon, datetime))
             .await?;
-        let res = resp
-            .json::<HistoricalResponse>()
-            .await?;
-
-        Ok(res)
+        response_handler::<HistoricalResponse>(resp).await
     }
 }

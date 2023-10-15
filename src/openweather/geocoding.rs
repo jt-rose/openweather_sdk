@@ -1,4 +1,4 @@
-use crate::responses::{GeocodingResponse, ZipCodeResponse};
+use crate::responses::{GeocodingResponse, response_handler, ZipCodeResponse};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
@@ -44,12 +44,7 @@ impl Geocoding {
         );
         let resp = reqwest::get(url)
             .await?;
-        resp.error_for_status_ref()?;
-        let res = resp
-            .json::<Vec<GeocodingResponse>>()
-            .await?;
-
-        Ok(res)
+        response_handler::<Vec<GeocodingResponse>>(resp).await
     }
 
     pub async fn get_geocoding_by_zip_code(&self, zip_code: &str, country_code: Option<&str>) -> Result<ZipCodeResponse, Box<dyn std::error::Error>> {
@@ -68,12 +63,7 @@ impl Geocoding {
 
         let resp = reqwest::get(url)
             .await?;
-        resp.error_for_status_ref()?;
-        let res = resp
-            .json::<ZipCodeResponse>()
-            .await?;
-
-        Ok(res)
+        response_handler::<ZipCodeResponse>(resp).await
     }
 
     pub async fn get_location_data(&self, lat: f64, lon: f64, limit: u8) -> Result<Vec<GeocodingResponse>, Box<dyn std::error::Error>> {
@@ -87,11 +77,6 @@ impl Geocoding {
 
         let resp = reqwest::get(url)
             .await?;
-        resp.error_for_status_ref()?;
-        let res = resp
-            .json::<Vec<GeocodingResponse>>()
-            .await?;
-
-        Ok(res)
+        response_handler::<Vec<GeocodingResponse>>(resp).await
     }
 }

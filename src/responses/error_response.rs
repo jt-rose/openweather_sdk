@@ -6,7 +6,7 @@ use std::fmt::{Debug, Display, Formatter};
 pub struct ErrorResponse {
     pub cod: u16,
     pub message: String,
-    pub parameters: Option<Vec<String>>
+    pub parameters: Option<Vec<String>>,
 }
 
 impl ErrorResponse {

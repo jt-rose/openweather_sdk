@@ -2,8 +2,8 @@ use reqwest::StatusCode;
 use crate::responses::ErrorResponse;
 
 pub async fn response_handler<T>(resp: reqwest::Response) -> Result<T, Box<dyn std::error::Error>>
-where
-    T: serde::de::DeserializeOwned,
+    where
+        T: serde::de::DeserializeOwned,
 {
     return match resp.status() {
         StatusCode::OK => {
@@ -11,14 +11,14 @@ where
                 .json::<T>()
                 .await?;
             Ok(res)
-        },
+        }
         _ => {
             let err = resp
                 .json::<ErrorResponse>()
                 .await?;
             Err(Box::new(err))
         }
-    }
+    };
 }
 
 #[cfg(test)]

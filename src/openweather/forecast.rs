@@ -1,4 +1,4 @@
-use crate::responses::ForecastResponse;
+use crate::responses::{ForecastResponse, response_handler};
 use crate::units::Units;
 use crate::languages::Language;
 use std::fmt;
@@ -47,11 +47,8 @@ impl Forecast {
     pub async fn call(&self, lat: f64, lon: f64, count: u8) -> Result<ForecastResponse, Box<dyn std::error::Error>> {
         let url = self.format_query(lat, lon, "", count);
         let resp = reqwest::get(url)
-            .await?
-            .json::<ForecastResponse>()
             .await?;
-
-        Ok(resp)
+        response_handler::<ForecastResponse>(resp).await
     }
 
     // TODO: confirm response type for hourly, daily, and climate

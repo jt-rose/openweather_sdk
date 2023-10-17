@@ -1,6 +1,6 @@
 use std::fmt;
 use serde::{Serialize, Deserialize};
-use crate::responses::AirPollutionResponse;
+use crate::responses::{AirPollutionResponse, response_handler};
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct AirPollution {
@@ -44,31 +44,21 @@ impl AirPollution {
     pub async fn get_current_air_pollution(&self, lat: f64, lon: f64) -> Result<AirPollutionResponse, Box<dyn std::error::Error>> {
         let url = self.format_query(lat, lon, "");
         let resp = reqwest::get(url)
-            .await?
-            .json::<AirPollutionResponse>()
             .await?;
-
-        Ok(resp)
-
+        response_handler::<AirPollutionResponse>(resp).await
     }
 
     pub async fn get_forecast_air_pollution(&self, lat: f64, lon: f64) -> Result<AirPollutionResponse, Box<dyn std::error::Error>> {
         let url = self.format_query(lat, lon, "/forecast");
         let resp = reqwest::get(url)
-            .await?
-            .json::<AirPollutionResponse>()
             .await?;
-
-        Ok(resp)
+        response_handler::<AirPollutionResponse>(resp).await
     }
 
     pub async fn get_historical_air_pollution(&self, lat: f64, lon: f64, start: u64, end: u64) -> Result<AirPollutionResponse, Box<dyn std::error::Error>> {
         let url = self.format_historical_query(lat, lon, start, end);
         let resp = reqwest::get(url)
-            .await?
-            .json::<AirPollutionResponse>()
             .await?;
-
-        Ok(resp)
+        response_handler::<AirPollutionResponse>(resp).await
     }
 }

@@ -1,9 +1,7 @@
 use serde::{ Serialize, Deserialize};
 use crate::responses::response_elements::Weather;
 use std::fmt;
-use std::fmt::Formatter;
 use crate::responses::response_elements::Clouds;
-use crate::responses::response_elements::Rain;
 use crate::responses::response_elements::Wind;
 use crate::responses::response_elements::Coord;
 

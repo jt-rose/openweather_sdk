@@ -1,5 +1,6 @@
 pub mod air_pollution;
 pub mod forecast;
+pub mod current;
 pub mod one_call;
 pub mod geocoding;
 pub mod maps;
@@ -15,10 +16,13 @@ use serde::{ Serialize, Deserialize};
 use crate::units::Units;
 use crate::languages::Language;
 
+use self::current::Current;
+
 #[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct OpenWeather {
     pub one_call: OneCall,
     pub forecast: Forecast,
+    pub current: Current,
     pub maps: Maps,
     pub air_pollution: AirPollution,
     pub geocoding: Geocoding
@@ -43,6 +47,7 @@ impl OpenWeather {
         Self {
             one_call: OneCall::new(api_key.clone(), units, language),
             forecast: Forecast::new(api_key.clone(), units, language),
+            current: Current::new(api_key.clone(), units, language),
             maps: Maps::new(api_key.clone()),
             air_pollution: AirPollution::new(api_key.clone()),
             geocoding: Geocoding::new(api_key.clone())

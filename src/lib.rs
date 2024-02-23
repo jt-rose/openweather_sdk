@@ -11,6 +11,7 @@
 //! - [x] [OneCall]
 //! - [x] [TimeMachine]
 //! - [x] [Forecast]
+//! - [x] [Current]
 //! - [x] [Maps]
 //! - [x] [Air Pollution]
 //! - [x] [Geocoding]
@@ -63,6 +64,16 @@
 //!
 //! // get forecast data with specified number of timestamps
 //! let res = openweather.forecast.call(lat, lon, count).await;
+//! ```
+//!
+//! ### Current
+//!
+//! ```rust
+//! let lat = 38.795021;
+//! let lon = -77.273300;
+//!
+//! // get forecast data with specified number of timestamps
+//! let res = openweather.current.call(lat, lon).await;
 //! ```
 //!
 //! ### Maps
@@ -246,6 +257,17 @@ mod tests {
     //
     //     assert_eq!(result.is_ok(), true);
     // }
+
+     // current
+     #[tokio::test]
+     async fn get_current() {
+         let client = create_client();
+         let setup = Setup::new();
+         let result = client.current.call(setup.lat, setup.lon).await;
+ 
+         assert_eq!(result.is_ok(), true);
+     }
+
 
     // maps
     #[tokio::test]

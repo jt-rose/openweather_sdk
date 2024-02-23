@@ -11,6 +11,7 @@ This library is a small rust wrapper for making requests to the [OpenWeather API
 - [x] [OneCall]
 - [x] [TimeMachine]
 - [x] [Forecast]
+- [x] [Current]
 - [x] [Maps]
 - [x] [Air Pollution]
 - [x] [Geocoding]
@@ -60,6 +61,15 @@ let count = 10;
 
 // get forecast data with specified number of timestamps
 let res = openweather.forecast.call(lat, lon, count).await;
+```
+
+#### Current Query
+```rust
+let lat = 38.795021;
+let lon = -77.273300;
+
+// get forecast data with specified number of timestamps
+let res = openweather.current.call(lat, lon).await;
 ```
 
 #### Maps Query

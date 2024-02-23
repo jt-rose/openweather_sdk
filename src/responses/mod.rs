@@ -6,9 +6,11 @@ mod geocoding_response;
 pub mod response_elements;
 mod error_response;
 mod response_handler;
+pub mod current_response;
 
 pub use air_pollution_response::AirPollutionResponse;
 pub use forecast_response::ForecastResponse;
+pub use current_response::CurrentResponse;
 pub use one_call_response::OneCallResponse;
 pub use historical_response::HistoricalResponse;
 pub use geocoding_response::{GeocodingResponse, ZipCodeResponse};

@@ -20,7 +20,7 @@ impl fmt::Display for Sys {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
-            "System: (tpye: {}, id: {}, country: {}, sunrise: {}, sunset: {})",
+            "System: (type: {}, id: {}, country: {}, sunrise: {}, sunset: {})",
             self.sys_type,
             self.id,
             self.country,

@@ -68,7 +68,7 @@ let res = openweather.forecast.call(lat, lon, count).await;
 let lat = 38.795021;
 let lon = -77.273300;
 
-// get forecast data with specified number of timestamps
+// get current forecast data
 let res = openweather.current.call(lat, lon).await;
 ```
 
@@ -137,9 +137,10 @@ let res3 = openweather.geocoding.get_location_data(lat, lon, limit).await;
 [OneCall]: https://openweathermap.org/api/one-call-3
 [TimeMachine]: https://openweathermap.org/api/one-call-3#history
 [Forecast]: https://openweathermap.org/forecast5
+[Current]: https://openweathermap.org/current
 [Maps]: https://openweathermap.org/api/weathermaps
 [Air Pollution]: https://openweathermap.org/api/air-pollution
 [Geocoding]: https://openweathermap.org/api/geocoding-api
 [serde]: https://serde.rs/
 [Reqwest]: https://docs.rs/reqwest/0.11.4/reqwest/
-[Jeff Rose]: www.github.com/jt-rose
+[Jeff Rose]: https://www.github.com/jt-rose

@@ -45,7 +45,6 @@ impl Current {
 
     pub async fn call(&self, lat: f64, lon: f64) -> Result<CurrentResponse, Box<dyn std::error::Error>> {
         let url = self.format_query(lat, lon);
-        dbg!(&url);
         let resp = reqwest::get(url)
             .await?;
         response_handler::<CurrentResponse>(resp).await

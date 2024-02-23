@@ -1,6 +1,6 @@
 [package]
 name = "openweather_sdk"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 authors = ["Jeff Rose"]
 description = "a fully typed SDK for the OpenWeather API"

@@ -167,7 +167,18 @@ mod tests {
     }
 
     impl Setup {
-        pub fn new() -> Self {
+        pub fn new(lat: f64, lon: f64) -> Self {
+            Self {
+                lat: lat,
+                lon: lon,
+                start: 1606223802,
+                end: 1606482999,
+            }
+        }
+    }
+
+    impl Default for Setup {
+        fn default() -> Self {
             Self {
                 lat: 38.795021,
                 lon: -77.273300,
@@ -194,7 +205,7 @@ mod tests {
     #[tokio::test]
     async fn get_one_call() {
         let client = create_client();
-        let setup = Setup::new();
+        let setup = Setup::default();
         let result = client.one_call.call(setup.lat, setup.lon).await;
 
         assert_eq!(result.is_ok(), true);
@@ -205,17 +216,30 @@ mod tests {
         let mut client = create_client();
         client.one_call.fields.minutely = false;
         client.one_call.fields.hourly = false;
-        let setup = Setup::new();
+        let setup = Setup::default();
         let result = client.one_call.call(setup.lat, setup.lon).await;
 
         assert_eq!(result.is_ok(), true);
-        // TODO: add check for removed fields as null
+
+        let result = result.unwrap();
+
+        assert_eq!(result.minutely, None);
+        assert_eq!(result.hourly, None);
+    }
+
+    #[tokio::test]
+    async fn get_one_call_with_missing_fields() {
+        let client = create_client();
+        let setup = Setup::new(48.210033, 16.363449);
+        let result = client.one_call.call(setup.lat, setup.lon).await;
+
+        assert_eq!(result.is_ok(), true);
     }
 
     #[tokio::test]
     async fn get_historical_one_call() {
         let client = create_client();
-        let setup = Setup::new();
+        let setup = Setup::default();
         let result = client.one_call.call_historical_data(setup.lat, setup.lon, 643803200).await;
 
         assert_eq!(result.is_ok(), true);
@@ -225,7 +249,7 @@ mod tests {
     #[tokio::test]
     async fn get_forecast() {
         let client = create_client();
-        let setup = Setup::new();
+        let setup = Setup::default();
         let result = client.forecast.call(setup.lat, setup.lon, 5).await;
 
         assert_eq!(result.is_ok(), true);
@@ -234,7 +258,7 @@ mod tests {
     // #[tokio::test]
     // async fn get_hourly_forecast() {
     //     let client = create_client();
-    //     let setup = Setup::new();
+    //     let setup = Setup::default();
     //     let result = client.forecast.get_hourly_forecast(setup.lat, setup.lon,5).await;
     //
     //     assert_eq!(result.is_ok(), true);
@@ -243,7 +267,7 @@ mod tests {
     // #[tokio::test]
     // async fn get_daily_forecast() {
     //     let client = create_client();
-    //     let setup = Setup::new();
+    //     let setup = Setup::default();
     //     let result = client.forecast.get_daily_forecast(setup.lat, setup.lon,5).await;
     //
     //     assert_eq!(result.is_ok(), true);
@@ -252,7 +276,7 @@ mod tests {
     // #[tokio::test]
     // async fn get_climate_forecast() {
     //     let client = create_client();
-    //     let setup = Setup::new();
+    //     let setup = Setup::default();
     //     let result = client.forecast.get_climate_forecast(setup.lat, setup.lon,5).await;
     //
     //     assert_eq!(result.is_ok(), true);
@@ -262,7 +286,7 @@ mod tests {
      #[tokio::test]
      async fn get_current() {
          let client = create_client();
-         let setup = Setup::new();
+         let setup = Setup::default();
          let result = client.current.call(setup.lat, setup.lon).await;
  
          assert_eq!(result.is_ok(), true);
@@ -314,7 +338,7 @@ mod tests {
     #[tokio::test]
     async fn get_air_pollution() {
         let client = create_client();
-        let setup = Setup::new();
+        let setup = Setup::default();
         let result = client.air_pollution.get_current_air_pollution(setup.lat, setup.lon).await;
 
         assert_eq!(result.is_ok(), true);
@@ -323,7 +347,7 @@ mod tests {
     #[tokio::test]
     async fn get_historical_air_pollution() {
         let client = create_client();
-        let setup = Setup::new();
+        let setup = Setup::default();
         let result = client.air_pollution.get_historical_air_pollution(setup.lat, setup.lon, setup.start, setup.end).await;
 
         assert_eq!(result.is_ok(), true);
@@ -332,7 +356,7 @@ mod tests {
     #[tokio::test]
     async fn get_forecast_air_pollution() {
         let client = create_client();
-        let setup = Setup::new();
+        let setup = Setup::default();
         let result = client.air_pollution.get_forecast_air_pollution(setup.lat, setup.lon).await;
 
         assert_eq!(result.is_ok(), true);
@@ -358,7 +382,7 @@ mod tests {
     #[tokio::test]
     async fn get_reverse_geocoding() {
         let client = create_client();
-        let setup = Setup::new();
+        let setup = Setup::default();
         let result = client.geocoding.get_location_data(setup.lat, setup.lon, 5).await;
 
         assert_eq!(result.is_ok(), true);

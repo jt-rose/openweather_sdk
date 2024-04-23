@@ -6,6 +6,7 @@ use crate::responses::response_elements::Clouds;
 use crate::responses::response_elements::Rain;
 use crate::responses::response_elements::Wind;
 use crate::responses::response_elements::Coord;
+use crate::utils::display_option;
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Default, Clone)]
 pub struct Sys {
@@ -62,7 +63,7 @@ pub struct ForecastDescription {
     pub weather: Vec<Weather>,
     pub clouds: Clouds,
     pub wind: Wind,
-    pub visibility: i64,
+    pub visibility: Option<i64>,
     pub pop: f64,
     pub rain: Option<Rain>,
     pub sys: Sys,
@@ -78,11 +79,6 @@ impl fmt::Display for ForecastDescription {
         }
         weather_list.push_str(" ]");
 
-        let rain_string = match &self.rain {
-            Some(rain) => format!("{}", rain),
-            None => "None".to_string()
-        };
-
         write!(
             f,
             "ForecastDescription: (datetime: {}, main: {}, weather: {}, clouds: {}, wind: {}, visibility: {}, pop: {}, rain: {}, sys: {}, dt_txt: {})",
@@ -91,9 +87,9 @@ impl fmt::Display for ForecastDescription {
             weather_list,
             self.clouds,
             self.wind,
-            self.visibility,
+            display_option(&self.visibility),
             self.pop,
-            rain_string,
+            display_option(&self.rain),
             self.sys,
             self.dt_txt
         )

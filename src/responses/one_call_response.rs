@@ -9,8 +9,8 @@ use crate::utils::display_option;
 #[derive(Debug, Serialize, Deserialize, PartialOrd, PartialEq, Default, Clone)]
 pub struct Current {
     pub dt: i64,
-    pub sunrise: i64,
-    pub sunset: i64,
+    pub sunrise: Option<i64>,
+    pub sunset: Option<i64>,
     pub temp: f64,
     pub feels_like: f64,
     pub pressure: u64,
@@ -40,8 +40,8 @@ impl fmt::Display for Current {
             f,
             "Current: (dt: {}, sunrise: {}, sunset: {}, temp: {}, feels_like: {}, pressure: {}, humidity: {}, dew_point: {}, uvi: {}, clouds: {}, visibility: {}, wind_speed: {}, wind_deg: {}, wind_gust: {}, rain: {}, snow: {}, weather: {})",
             self.dt,
-            self.sunrise,
-            self.sunset,
+            display_option(&self.sunrise),
+            display_option(&self.sunset),
             self.temp,
             self.feels_like,
             self.pressure,
@@ -85,8 +85,8 @@ impl fmt::Display for FeelsLike {
 pub struct Daily {
     #[serde(alias = "dt")]
     pub datetime: i64,
-    pub sunrise: i64,
-    pub sunset: i64,
+    pub sunrise: Option<i64>,
+    pub sunset: Option<i64>,
     pub moonrise: i64,
     pub moonset: i64,
     pub moon_phase: f64,
@@ -119,8 +119,8 @@ impl fmt::Display for Daily {
             f,
             "Daily: (datetime: {}, sunrise: {}, sunset: {}, moonrise: {}, moonset: {}, moon_phase: {}, temp: {}, feels_like: {}, pressure: {}, humidity: {}, dew_point: {}, wind_speed: {}, wind_deg: {}, wind_gust: {}, weather: {}, clouds: {}, pop: {}, rain: {}, snow: {}, uvi: {})",
             self.datetime,
-            self.sunrise,
-            self.sunset,
+            display_option(&self.sunrise),
+            display_option(&self.sunset),
             self.moonrise,
             self.moonset,
             self.moon_phase,

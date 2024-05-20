@@ -228,9 +228,18 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn get_one_call_with_missing_fields() {
+    async fn get_one_call_with_missing_visibility() {
         let client = create_client();
         let setup = Setup::new(48.210033, 16.363449);
+        let result = client.one_call.call(setup.lat, setup.lon).await;
+
+        assert_eq!(result.is_ok(), true);
+    }
+
+    #[tokio::test]
+    async fn get_one_call_with_missing_sunset_sunrise() {
+        let client = create_client();
+        let setup = Setup::new(69.702819, 170.274688);
         let result = client.one_call.call(setup.lat, setup.lon).await;
 
         assert_eq!(result.is_ok(), true);

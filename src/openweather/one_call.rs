@@ -2,7 +2,7 @@ use std::fmt;
 use serde::{Serialize, Deserialize};
 use crate::languages::Language;
 use crate::units::Units;
-use crate::responses::{OneCallResponse, HistoricalResponse, response_handler};
+use crate::responses::{OneCallResponse, HistoricalResponse, WeatherOverviewResponse, response_handler};
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Copy, Clone)]
 pub struct Fields {
@@ -102,6 +102,22 @@ impl OneCall {
         )
     }
 
+    fn format_weather_overview_query(&self, lat: f64, lon: f64, date: Option<&str>) -> String {
+        let date_param = match date {
+            Some(value) => format!("&date={value}"),
+            _ => "".to_string()
+        };
+
+        format!(
+            "https://api.openweathermap.org/data/3.0/onecall/overview?lat={}&lon={}{}&units={}&appid={}",
+            lat,
+            lon,
+            date_param,
+            self.units,
+            self.api_key
+        )
+    }
+
     fn format_excluded_fields(&self) -> String {
         let mut excluded_fields = Vec::new();
 
@@ -140,5 +156,11 @@ impl OneCall {
         let resp = reqwest::get(self.format_historical_query(lat, lon, datetime))
             .await?;
         response_handler::<HistoricalResponse>(resp).await
+    }
+
+    pub async fn call_weather_overview(&self, lat: f64, lon: f64, date: Option<&str>) -> Result<WeatherOverviewResponse, Box<dyn std::error::Error>> {
+        let resp = reqwest::get(self.format_weather_overview_query(lat, lon, date))
+            .await?;
+        response_handler::<WeatherOverviewResponse>(resp).await
     }
 }

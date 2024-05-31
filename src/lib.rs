@@ -10,6 +10,7 @@
 //! ### Query Types Supported
 //! - [x] [OneCall]
 //! - [x] [TimeMachine]
+//! - [x] [WeatherOverview]
 //! - [x] [Forecast]
 //! - [x] [Current]
 //! - [x] [Maps]
@@ -42,6 +43,7 @@
 //! let lat = 38.795021;
 //! let lon = -77.273300;
 //! let historical_date = 1606223802;
+//! let date = "2024-05-31" // YYYY-MM-DD format
 //!
 //! // get one call data for current weather
 //! let res = openweather.one_call.call(lat, lon).await;
@@ -49,10 +51,13 @@
 //! // get one call data for historical weather
 //! let res2 = openweather.one_call.historical(lat, lon, historical_date).await;
 //!
+//! // get one call data for weather overview
+// let res3 = openweather.one_call.weather_overview(lat, lon, date).await;
+//!
 //! // customize response fields
 //! openweather.one_call.fields.minutely = false;
 //! openweather.one_call.fields.hourly = false;
-//! let res3 = openweather.one_call.call(lat, lon).await;
+//! let res4 = openweather.one_call.call(lat, lon).await;
 //! ```
 //!
 //! ### Forecast
@@ -130,6 +135,7 @@
 //! [OpenWeather API]: https://openweathermap.org/api
 //! [OneCall]: https://openweathermap.org/api/one-call-3
 //! [TimeMachine]: https://openweathermap.org/api/one-call-3#history
+//! [WeatherOverview]: https://docs.openweather.co.uk/api/one-call-3#weather_overview
 //! [Forecast]: https://openweathermap.org/forecast5
 //! [Maps]: https://openweathermap.org/api/weathermaps
 //! [Air Pollution]: https://openweathermap.org/api/air-pollution
@@ -250,6 +256,27 @@ mod tests {
         let client = create_client();
         let setup = Setup::default();
         let result = client.one_call.call_historical_data(setup.lat, setup.lon, 643803200).await;
+
+        assert_eq!(result.is_ok(), true);
+    }
+
+    #[tokio::test]
+    async fn get_weather_overview_one_call() {
+        let client = create_client();
+        let setup = Setup::default();
+        let result = client.one_call.call_weather_overview(setup.lat, setup.lon, None).await;
+
+        assert_eq!(result.is_ok(), true);
+    }
+
+    #[tokio::test]
+    async fn get_weather_overview_one_call_with_date() {
+        let client = create_client();
+        let setup = Setup::default();
+        // NOTE: weather_overview currently only supports today or tomorrow date requests
+        // NOTE: in a YYYY-MM-DD format, so update this as needed for testing
+        let tomorrow = Some("2024-06-01");
+        let result = client.one_call.call_weather_overview(setup.lat, setup.lon, tomorrow).await;
 
         assert_eq!(result.is_ok(), true);
     }

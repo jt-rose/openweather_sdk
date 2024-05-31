@@ -10,6 +10,7 @@ This library is a small rust wrapper for making requests to the [OpenWeather API
 ### Query Types Supported
 - [x] [OneCall]
 - [x] [TimeMachine]
+- [x] [WeatherOverview]
 - [x] [Forecast]
 - [x] [Current]
 - [x] [Maps]
@@ -40,6 +41,7 @@ let forecast_response = openweather.forecast.call(lat, lon, count).await;
 let lat = 38.795021;
 let lon = -77.273300;
 let historical_date = 1606223802;
+let date = "2024-05-31" // YYYY-MM-DD format
 
 // get one call data for current weather
 let res = openweather.one_call.call(lat, lon).await;
@@ -47,10 +49,13 @@ let res = openweather.one_call.call(lat, lon).await;
 // get one call data for historical weather
 let res2 = openweather.one_call.historical(lat, lon, historical_date).await;
 
+// get one call data for weather overview
+let res3 = openweather.one_call.weather_overview(lat, lon, date).await;
+
 // customize response fields
 openweather.one_call.fields.minutely = false;
 openweather.one_call.fields.hourly = false;
-let res3 = openweather.one_call.call(lat, lon).await;
+let res4 = openweather.one_call.call(lat, lon).await;
 ```
 
 #### Forecast Query
@@ -136,6 +141,7 @@ let res3 = openweather.geocoding.get_location_data(lat, lon, limit).await;
 [OpenWeather API]: https://openweathermap.org/api
 [OneCall]: https://openweathermap.org/api/one-call-3
 [TimeMachine]: https://openweathermap.org/api/one-call-3#history
+[WeatherOverview]: https://docs.openweather.co.uk/api/one-call-3#weather_overview
 [Forecast]: https://openweathermap.org/forecast5
 [Current]: https://openweathermap.org/current
 [Maps]: https://openweathermap.org/api/weathermaps

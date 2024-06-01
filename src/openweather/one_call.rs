@@ -2,7 +2,7 @@ use std::fmt;
 use serde::{Serialize, Deserialize};
 use crate::languages::Language;
 use crate::units::Units;
-use crate::responses::{OneCallResponse, HistoricalResponse, WeatherOverviewResponse, response_handler};
+use crate::responses::{OneCallResponse, HistoricalResponse, DailyAggregationResponse, WeatherOverviewResponse, response_handler};
 
 #[derive(Debug, Serialize, Deserialize, Ord, PartialOrd, Eq, PartialEq, Hash, Copy, Clone)]
 pub struct Fields {
@@ -102,6 +102,24 @@ impl OneCall {
         )
     }
 
+    fn format_daily_aggregation_query(&self, lat: f64, lon: f64, date: &str, timezone: Option<&str>) -> String {
+        let tz_param = match timezone {
+            Some(value) => format!("&tz={value}"),
+            _ => "".to_string()
+        };
+
+        format!(
+            "https://api.openweathermap.org/data/3.0/onecall/day_summary?lat={}&lon={}&date={}{}&units={}&lang={}&appid={}",
+            lat,
+            lon,
+            date,
+            tz_param,
+            self.units,
+            self.language,
+            self.api_key
+        )
+    }
+
     fn format_weather_overview_query(&self, lat: f64, lon: f64, date: Option<&str>) -> String {
         let date_param = match date {
             Some(value) => format!("&date={value}"),
@@ -156,6 +174,12 @@ impl OneCall {
         let resp = reqwest::get(self.format_historical_query(lat, lon, datetime))
             .await?;
         response_handler::<HistoricalResponse>(resp).await
+    }
+
+    pub async fn call_daily_aggregation(&self, lat: f64, lon: f64, date: &str, timezone: Option<&str>) -> Result<DailyAggregationResponse, Box<dyn std::error::Error>> {
+        let resp = reqwest::get(self.format_daily_aggregation_query(lat, lon, date, timezone))
+            .await?;
+        response_handler::<DailyAggregationResponse>(resp).await
     }
 
     pub async fn call_weather_overview(&self, lat: f64, lon: f64, date: Option<&str>) -> Result<WeatherOverviewResponse, Box<dyn std::error::Error>> {
